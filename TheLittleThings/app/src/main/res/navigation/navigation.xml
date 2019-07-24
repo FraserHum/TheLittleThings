@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/taskListFragment">
+    <fragment
+        android:id="@+id/taskEntryFragment"
+        android:name="com.example.thelittlethings.taskentry.TaskEntryFragment"
+        android:label="fragment_task_entry"
+        tools:layout="@layout/fragment_task_entry" >
+        <action
+            android:id="@+id/action_taskEntryFragment_to_taskListFragment"
+            app:destination="@id/taskListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/taskListFragment"
+        android:name="com.example.thelittlethings.tasklist.TaskListFragment"
+        android:label="TaskListFragment"
+        tools:layout="@layout/fragment_task_list"
+        >
+        <action
+            android:id="@+id/action_taskListFragment_to_taskEntryFragment"
+            app:destination="@id/taskEntryFragment"
+            app:popUpTo="@+id/taskListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>

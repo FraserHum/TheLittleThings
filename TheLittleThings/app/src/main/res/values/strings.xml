@@ -1,0 +1,19 @@
+<resources>
+
+    <!-- App title and fragment titles -->
+    <string name="app_name">The Little Things</string>
+    <string name="task_list_fragment">TaskListFragment</string>
+    <string name="task_entry_fragment">TaskENtryFragment</string>
+
+    <!-- Task edit strings -->
+    <string name="task_description_edit">Task description </string>
+    <string name="task_name_edit">Task name</string>
+    <string name="done">Done</string>
+
+    <!-- Toast to play after Clear button has been pressed -->
+    <string name="cleared_message">All your data is gone forever.</string>
+    <string name="task_entry_title">Enter a new task below</string>
+    <string name="new_task_button_text">Add task</string>
+
+
+</resources>
