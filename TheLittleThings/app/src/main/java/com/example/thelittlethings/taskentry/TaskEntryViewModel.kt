@@ -26,7 +26,11 @@ class TaskEntryViewModel( val database: TaskDatabaseDao) : ViewModel() {
 
     private val _navigateToTaskList = MutableLiveData<Boolean>()
     val navigateToTaskList : LiveData<Boolean>
-    get() = _navigateToTaskList
+        get() = _navigateToTaskList
+
+    private val _createNewTask = MutableLiveData<Boolean>()
+    val createNewTask : LiveData<Boolean>
+        get() = _createNewTask
 
     fun doneNavigating() {
         _navigateToTaskList.value = null
@@ -40,21 +44,34 @@ class TaskEntryViewModel( val database: TaskDatabaseDao) : ViewModel() {
 
 
     fun onCreateNewTask() {
-
-
-                val newTask = Task()
-
-
-                newTask.taskName = findViewById(R.id.task_name_edit)
-                newTask.taskDescription = taskDescription
-                newTask.taskNumber = 0
-                database.insert(newTask)
-
-
-            _navigateToTaskList.value = true
-        }
+        _createNewTask.value = true
+        Timber.i("onCreateNewTask")
 
     }
 
 
+
+    fun createNewTask(taskName: String, taskDescription: String){
+        uiScope.launch {
+            val newTask = Task()
+            newTask.taskName = taskName
+            newTask.taskDescription = taskDescription
+            newTask.taskNumber = 0
+            Timber.i("new task made")
+            insert(newTask)
+            Timber.i("new task inserted")
+        }
+
+        _createNewTask.value = null
+
+        _navigateToTaskList.value = true
+
+
+    }
+
+    private suspend fun insert(task: Task){
+        withContext(Dispatchers.IO){
+            database.insert(task)
+        }
+    }
 }

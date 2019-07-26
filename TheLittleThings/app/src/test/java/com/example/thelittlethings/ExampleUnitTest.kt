@@ -21,7 +21,7 @@ import java.io.IOException
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 
-class SleepDatabaseTest {
+class TaskDatabaseTest {
 
     private lateinit var taskDao: TaskDatabaseDao
     private lateinit var db: TaskDatabase

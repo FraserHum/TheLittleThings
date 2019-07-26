@@ -57,6 +57,12 @@ class TaskEntryFragment : Fragment() {
             }
         })
 
+        taskEntryViewModel.createNewTask.observe(this, Observer {
+            if (it == true){
+                taskEntryViewModel.createNewTask(binding.taskNameEdit.text.toString(), binding.taskDescriptionEdit.text.toString())
+            }
+        })
+
 
         return binding.root
     }

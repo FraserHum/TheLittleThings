@@ -9,13 +9,13 @@ import androidx.room.Update
 @Dao
 interface TaskDatabaseDao {
     @Insert
-    fun insert(task: Task) : Long
+    fun insert(task: Task)
 
     @Update
     fun update(task: Task)
 
     @Query( "SELECT * from task_table WHERE taskID = :key")
-    fun get(key: Long): Task?
+    fun get(key: Long): Task
 
     @Query ("DELETE FROM task_table")
     fun clear()
