@@ -20,6 +20,6 @@ interface DayDatabaseDao {
     @Query("DELETE FROM day_table")
     fun clear()
 
-    @Query("SELECT * from day_table ORDER BY date DESC")
-    fun getAllDays(): LiveData<List<Day>>
+    @Query("SELECT * from day_table ORDER BY date DESC LIMIT 1")
+    fun getMostRecent(): Day
 }
