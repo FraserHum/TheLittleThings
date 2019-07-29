@@ -1,4 +1,4 @@
-package com.example.thelittlethings.daydatabase
+package com.example.thelittlethings.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

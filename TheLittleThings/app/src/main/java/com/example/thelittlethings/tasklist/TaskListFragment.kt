@@ -62,6 +62,7 @@ class TaskListFragment : Fragment() {
         taskListViewModel.tasks.observe(viewLifecycleOwner, Observer {
             it?.let{
                 adapter.data = it
+                taskListViewModel.checkDate()
             }
         })
 
@@ -74,6 +75,8 @@ class TaskListFragment : Fragment() {
             }
 
         })
+
+
 
 
 

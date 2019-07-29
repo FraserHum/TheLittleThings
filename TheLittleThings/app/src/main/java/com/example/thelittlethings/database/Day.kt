@@ -1,4 +1,4 @@
-package com.example.thelittlethings.daydatabase
+package com.example.thelittlethings.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

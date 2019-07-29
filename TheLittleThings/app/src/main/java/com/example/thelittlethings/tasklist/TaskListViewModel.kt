@@ -1,19 +1,14 @@
 package com.example.thelittlethings.tasklist
 
 import android.app.Application
-import android.os.Build
-import android.text.Html
-import android.text.Spanned
-import androidx.core.text.HtmlCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import com.example.thelittlethings.R
 import com.example.thelittlethings.database.Task
 import com.example.thelittlethings.database.TaskDatabaseDao
 import kotlinx.coroutines.*
 import timber.log.Timber
+import java.sql.Date
 
 class TaskListViewModel(
     val database: TaskDatabaseDao, application: Application) : AndroidViewModel(application) {
@@ -23,9 +18,12 @@ class TaskListViewModel(
 
     val currentTask = MutableLiveData<Task>()
 
-    val tasks = database.getAllTasks()
+    val tasks = database.getAllTasks()  //TODO: encapsulate properly
 
-    val tasksFullList = database.getAllTasks()
+
+
+
+    val listDate : Date = Date(System.currentTimeMillis()) // TODO: set this to the lists date
 
 
     private val _navigateToTaskEntry = MutableLiveData<Boolean>()
@@ -37,10 +35,6 @@ class TaskListViewModel(
         Timber.i("doneNavigating()")
     }
 
-
-
-
-
     fun onNewTask() {
         uiScope.launch{
            _navigateToTaskEntry.value = true
@@ -48,6 +42,23 @@ class TaskListViewModel(
 
         }
     }
+
+    fun currentDayList() : List<Task> {
+        //TODO: return the correct list for the day
+        return tasks
+    }
+
+    fun checkDate(){
+        uiScope.launch{
+            if ( listDate != Date(System.currentTimeMillis())){
+                onNewDay()
+            }
+
+        }
+
+    }
+
+    fun onNewDay(){}
 
 
 
