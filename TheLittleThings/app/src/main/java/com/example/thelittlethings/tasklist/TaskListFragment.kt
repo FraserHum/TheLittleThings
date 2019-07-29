@@ -31,20 +31,20 @@ class TaskListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        Timber.i("OnCreateView called")
+
 
         val binding: FragmentTaskListBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_task_list, container, false)
-        Timber.i("binding set")
+
 
         val application = requireNotNull(this.activity).application
-        Timber.i("application val set")
+
 
         val dataSource = TaskDatabase.getInstance(application).taskDatabaseDao
-        Timber.i("Database get Instance called")
+
 
         val viewModelFactory = TaskListViewModelFactory(dataSource, application)
-        Timber.i("View model factory made")
+
 
         val taskListViewModel =
             ViewModelProviders.of(
@@ -53,7 +53,8 @@ class TaskListFragment : Fragment() {
         binding.taskListViewModel = taskListViewModel
 
         binding.setLifecycleOwner(this)
-        Timber.i("Binding life cycle owner set")
+
+
 
         val adapter = TaskAdapter()
         binding.taskList.adapter = adapter
@@ -74,7 +75,7 @@ class TaskListFragment : Fragment() {
 
         })
 
-        Timber.i("TaskListFragment Created")
+
 
         return binding.root
 

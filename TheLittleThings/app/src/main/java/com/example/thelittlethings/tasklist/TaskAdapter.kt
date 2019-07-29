@@ -19,7 +19,6 @@ class TaskAdapter: RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        val res = holder.itemView.context.resources
         holder.taskName.text = item.taskName
     }
 

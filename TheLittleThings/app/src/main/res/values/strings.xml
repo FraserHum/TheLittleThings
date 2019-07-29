@@ -14,6 +14,7 @@
     <string name="cleared_message">All your data is gone forever.</string>
     <string name="task_entry_title">Enter a new task below</string>
     <string name="new_task_button_text">Add task</string>
+    <string name="clear_button_text">Clear List</string>
 
 
 </resources>

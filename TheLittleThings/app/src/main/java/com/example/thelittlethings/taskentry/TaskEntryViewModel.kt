@@ -54,7 +54,7 @@ class TaskEntryViewModel( val database: TaskDatabaseDao) : ViewModel() {
     fun createNewTask(taskName: String, taskDescription: String){
         uiScope.launch {
             val newTask = Task()
-            newTask.taskName = taskName
+            newTask.taskName = taskName.capitalize()
             newTask.taskDescription = taskDescription
             newTask.taskNumber = 0
             Timber.i("new task made")

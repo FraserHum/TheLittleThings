@@ -25,6 +25,8 @@ class TaskListViewModel(
 
     val tasks = database.getAllTasks()
 
+    val tasksFullList = database.getAllTasks()
+
 
     private val _navigateToTaskEntry = MutableLiveData<Boolean>()
     val navigateToTaskEntry : LiveData<Boolean>
@@ -50,7 +52,9 @@ class TaskListViewModel(
 
 
 
-//    //TODO : fix this for editing tasks
+
+
+    //TODO : fix this for editing tasks
 //    private suspend fun getTaskFromDatabase(): Task? {
 //        return withContext(Dispatchers.IO){
 //          //  var task = database.get
@@ -78,7 +82,7 @@ class TaskListViewModel(
         }
     }
 
-    private suspend fun clear(){
+    private suspend fun     clear(){
         withContext(Dispatchers.IO){
             database.clear()
         }
