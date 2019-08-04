@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.thelittlethings.database.Day
 import com.example.thelittlethings.database.DayDatabaseDao
 import com.example.thelittlethings.database.Task
 import com.example.thelittlethings.database.TaskDatabaseDao
@@ -19,13 +20,12 @@ class TaskListViewModel(
 
     val currentTask = MutableLiveData<Task>()
 
+
     val tasks = database.getAllTasks()  //TODO: encapsulate properly
+    var currentList = tasks.value?.toMutableList()
 
-    val dateofLastList = daysDatabase.getMostRecent()
+    private var currentDay = daysDatabase.getMostRecent().value
 
-
-
-    val listDate : Date = Date(System.currentTimeMillis()) // TODO: set this to the lists date
 
 
     private val _navigateToTaskEntry = MutableLiveData<Boolean>()
@@ -39,7 +39,7 @@ class TaskListViewModel(
 
     fun onNewTask() {
         uiScope.launch{
-           _navigateToTaskEntry.value = true
+            _navigateToTaskEntry.value = true
             Timber.i("launched new task navigation")
 
         }
@@ -49,15 +49,50 @@ class TaskListViewModel(
 
     fun checkDate(){
         uiScope.launch{
-            if ( listDate != Date(System.currentTimeMillis())){
+            Timber.i("checkDate")
+            if(currentDay == null) currentDay = Day()
+            if ( Date(currentDay!!.dayDate) != Date(System.currentTimeMillis())){
                 onNewDay()
             }
-
         }
+    }
+
+    fun onNewDay(){
+        Timber.i("onNewDay")
+        if (database.getAllTasks().value != null) {
+            val listSize = database.getAllTasks().value!!.size
+            currentDay?.tasksComplete = listSize - tasks.value!!.size
+            currentDay?.tasksCompletePercent = currentDay?.tasksComplete!! / listSize * 100.0
+
+            daysDatabase.update(currentDay)
+
+            val newDay = Day()
+            newDay.dayDate = System.currentTimeMillis()
+
+            daysDatabase.insert(newDay)
+            currentDay = newDay
+            currentList = tasks.value?.toMutableList()
+        }
+
 
     }
 
-    fun onNewDay(){}
+    fun addNewestTaskToList(){
+        uiScope.launch {
+            withContext(Dispatchers.IO) {
+                database.getAddedTask()?.let {
+                    Timber.i(it.taskName.toString())
+                    currentList?.add(it)
+                }
+            }
+        }
+    }
+
+    fun onTaskClicked(id : Long){
+        currentList!!.forEach { if (it.taskID == id)
+            currentList!!.remove(it)
+        }
+    }
 
 
 

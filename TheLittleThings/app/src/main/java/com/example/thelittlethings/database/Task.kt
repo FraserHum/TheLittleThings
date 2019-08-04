@@ -16,6 +16,6 @@ data class Task (
     @ColumnInfo(name = "task_description")
     var taskDescription: String? = "",
 
-    @ColumnInfo(name = "task_number")
+    @ColumnInfo(name = "task_number") //TODO: Implement Item ordering
     var taskNumber: Int = -1
 )

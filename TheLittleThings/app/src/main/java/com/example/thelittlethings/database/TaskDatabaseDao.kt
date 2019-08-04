@@ -22,4 +22,8 @@ interface TaskDatabaseDao {
 
     @Query ("SELECT * from task_table ORDER BY task_number DESC")
     fun getAllTasks(): LiveData<List<Task>>
+
+    @Query("SELECT * from task_table ORDER BY task_number DESC LIMIT 1")
+    fun getAddedTask(): Task
+
 }

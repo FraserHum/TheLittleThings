@@ -1,5 +1,6 @@
 package com.example.thelittlethings.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -13,13 +14,13 @@ data class Day (
     var dayID: Long = 0L,
 
     @ColumnInfo(name = "date")
-    var dayDate: Date = Date(System.currentTimeMillis()),
+    var dayDate: Long = System.currentTimeMillis(),
 
-    @ColumnInfo(name = "unfinished_list")
-    var taskNumber: List<Task>? = null,
+    @ColumnInfo(name = "tasks_complete")
+    var tasksComplete: Int? = 0,
 
-    @ColumnInfo(name = "full_list")
-    var fullList: List<Task>? = null
+    @ColumnInfo(name = "tasks_complete_percent")
+    var tasksCompletePercent: Double? = 0.0
 
 
 )

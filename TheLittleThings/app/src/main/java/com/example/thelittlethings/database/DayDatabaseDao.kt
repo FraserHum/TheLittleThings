@@ -12,7 +12,7 @@ interface DayDatabaseDao {
     fun insert(day: Day)
 
     @Update
-    fun update(day: Day)
+    fun update(day: Day?)
 
     @Query( "SELECT * from day_table WHERE dayID = :key")
     fun get(key: Long): Day
@@ -21,5 +21,5 @@ interface DayDatabaseDao {
     fun clear()
 
     @Query("SELECT * from day_table ORDER BY date DESC LIMIT 1")
-    fun getMostRecent(): Day
+    fun getMostRecent(): LiveData<Day>
 }

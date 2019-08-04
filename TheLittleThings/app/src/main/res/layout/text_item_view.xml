@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="task"
+                  type="com.example.thelittlethings.database.Task"/>
+        <variable name="clickListener"
+                  type="com.example.thelittlethings.tasklist.TaskListener"/>
+    </data>
+<TextView
     android:id="@+id/text_item_view"
     android:textSize="24sp"
     android:paddingStart="16dp"
     android:paddingEnd="16dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
+    android:layout_height="wrap_content"
+    android:onClick="@{()-> clickListener.onClick(task)}"
+    tools:text="test"/>
+</layout>

@@ -41,14 +41,19 @@ class TaskListFragment : Fragment() {
 
 
         val dataSource = TaskDatabase.getInstance(application).taskDatabaseDao
+        val dayDataSource = TaskDatabase.getInstance(application).dayDatabaseDao
+        Timber.i("set up datasources")
 
 
-        val viewModelFactory = TaskListViewModelFactory(dataSource, application)
+
+        val viewModelFactory = TaskListViewModelFactory(dataSource, dayDataSource, application)
+        Timber.i("set up viewModelFactory")
 
 
         val taskListViewModel =
             ViewModelProviders.of(
                 this, viewModelFactory).get(TaskListViewModel::class.java)
+        Timber.i("set up viewModel")
 
         binding.taskListViewModel = taskListViewModel
 
@@ -56,13 +61,20 @@ class TaskListFragment : Fragment() {
 
 
 
-        val adapter = TaskAdapter()
+
+
+        val adapter = TaskAdapter(TaskListener { taskId ->
+            taskListViewModel.onTaskClicked(taskId)
+        })
         binding.taskList.adapter = adapter
 
         taskListViewModel.tasks.observe(viewLifecycleOwner, Observer {
             it?.let{
-                adapter.data = it
+                taskListViewModel.addNewestTaskToList()
+                Timber.i("observe tasks")
                 taskListViewModel.checkDate()
+                adapter.submitList(taskListViewModel.currentList)
+
             }
         })
 

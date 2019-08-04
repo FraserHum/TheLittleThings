@@ -7,10 +7,11 @@ import androidx.room.RoomDatabase
 import timber.log.Timber
 import java.security.AccessControlContext
 
-@Database(entities = [Task::class], version = 1, exportSchema = false)
+@Database(entities = [Task::class, Day::class], version = 2, exportSchema = false)
 abstract class TaskDatabase : RoomDatabase(){
 
     abstract val taskDatabaseDao: TaskDatabaseDao
+    abstract val dayDatabaseDao: DayDatabaseDao
 
     companion object {
 
