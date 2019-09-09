@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.thelittlethings.database.Day
 import com.example.thelittlethings.database.DayDatabaseDao
 import com.example.thelittlethings.database.Task
@@ -11,17 +12,22 @@ import com.example.thelittlethings.database.TaskDatabaseDao
 import kotlinx.coroutines.*
 import timber.log.Timber
 import java.sql.Date
+import javax.sql.CommonDataSource
 
-class TaskListViewModel(
-    val database: TaskDatabaseDao, val daysDatabase: DayDatabaseDao, application: Application) : AndroidViewModel(application) {
+class TaskListViewModel (dataSource: TaskDatabaseDao, dayDataSource: DayDatabaseDao,
+                         appliaction: Application) : ViewModel() {
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     val currentTask = MutableLiveData<Task>()
 
+    val database = dataSource
+    val daysDatabase = dayDataSource
 
-    val tasks = database.getAllTasks()  //TODO: encapsulate properly
+
+
+    val tasks = database.getAllTasks()
     var currentList = tasks.value?.toMutableList()
 
     private var currentDay = daysDatabase.getMostRecent().value
